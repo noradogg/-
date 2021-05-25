@@ -1,0 +1,49 @@
+\documentclass[dvipdfmx]{newthesis}
+
+\usepackage{graphicx} % dvipdfmxオプションを指定しないでください
+
+\title{%
+  newthesis クラス \\
+  使用例
+\\}
+\author{松井 憧馬}
+\date{平成30年度}
+\affiliation{%
+  大阪市立大学 工学部 電気情報工学科 \\
+  制御システム理論研究室 \\
+}
+\hyperrefsetpdfmetadata
+
+\addbibresource{reference.bib}
+
+\usepackage{bxjalipsum}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+  \jalipsum[1-5]{wagahai}
+\end{abstract}
+
+\thesisindex
+
+\chapter{序論}\label{chap:intro}
+
+\section{吾輩は猫である}
+
+\jalipsum[3-5]{wagahai}\cite{wagahai}
+
+\begin{equation}
+  E = mc^2
+\end{equation}
+
+\chapter{関連研究}
+
+\jalipsum[5-7]{wagahai}\cite{wagahai}
+
+\begin{acknowledgment}
+  \jalipsum[-2]{preamble}\cite{preamble}
+\end{acknowledgment}
+
+\thesisbib
+\end{document}

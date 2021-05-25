@@ -1,0 +1,352 @@
+\documentclass[dvipdfmx]{newthesis}
+
+\usepackage{graphicx} % dvipdfmxオプションを指定しないでください
+\hyperrefsetpdfmetadata
+\addbibresource{reference.bib}
+\usepackage{bxjalipsum}
+\usepackage{amsmath,amssymb}
+\usepackage{mathtools}
+
+%\mathtoolsset{showonlyrefs=true}
+
+\title{タイトル}
+% \engtitle{Sample of Resume Template}
+\date{令和2年度}
+\affiliation{
+  大阪市立大学 工学部 電気情報工学科 \\
+  情報通信領域
+}
+\author{野田 健太朗}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+概要書く
+\end{abstract}
+\thesisindex
+
+\chapter{序論}\label{chap:intro}
+\section{背景}
+%注釈\cite{キーワード}。\\
+近年，実店舗に出向かなくても買い物ができるネットショッピングが増加している．
+
+さらに，2020年に入ってからCOVID-19の影響もあり，さらに拍車をかけるようにネットショッピングが買い物の主流な形になるようになった．それにより，物流業界では人手不足が深刻化している．それを解決するのが移動式ロボットによる倉庫の自動化である．それはつまり，人が目的の荷物を探すため歩き回る必要があったが，その仕事をロボットが代わりに行うということである．このように倉庫内で荷物を運搬するロボットを活用することが，労働の削減につながり，さらには労働者不足を解消することにつながる．
+
+倉庫内のロボットを制御するうえで，ロボット同士の衝突，ロボットで道がふさがれていまいお互い身動きができなくなるデッドロック状態などの問題が考えられる．それらの問題を解決する有効な方法として，離散事象システムのスーパーバイザ制御が挙げられる．%ref
+
+先行研究に，スーパーバイザ制御の計算に特化したTCTという計算ソフトウェアを使用して，自動化倉庫のスーパーバイザ制御を設計する研究がある%ref
+．これは，ロボットごとの動的オートマトンモデルを作り，条件を満たさないロボットの動きを制限して，タスクを各ロボットが円滑にこなせるように，スーパーバイザを計算するアルゴリズムが提案されている．ここでいう条件とは，ロボット同士や人間と衝突せずにすべてのロボットがゴールまでたどり着く，タスクとはロボットが荷物を目的の場所まで運ぶことをいう．
+
+\section{目的}
+本研究では，先行研究の内容を発展させ，人間が倉庫に立ち入ることを想定したケースにおいても，離散事象システムを用いたスーパーバイザ制御が有効であることを追究する．倉庫内で予測不可能なトラブルが発生し，そのトラブルがロボットで対処できない場合，人間の手でトラブルを処理する必要がある．そのとき，人間はロボットと同じ通路を通りトラブルの起こった場所まで行く．制御できる対象でない人間も考慮したうえでロボットの制御を行わなくてはならない．このように，自動化された一環のシステムに，あえて人間を介入させたシステムを考えることをHuman-in-the-loopという%ref
+． 
+
+論文の構成．．．
+　
+\chapter{スーパーバイザ制御理論}
+\setcounter{section}{-1}
+\section{緒言}
+%またスーパーバイザ制御とは，制御対象に対して，制御要求を満たさない遷移をしてしまう事象を起こらないように禁止するシステムである．
+
+\section{オートマトン}
+\subsection{有限オートマトンの基本}
+
+離散事象システムとは，システム内で起こる事象に切れ目があり，ある順序または条件に従ってそれら事象が発生し，全体の活動が支えられるようなシステムである\cite{DES}．例を挙げると
+
+．．．
+
+離散事象システムのモデリングには有限オートマトンが適している．有限オートマトンとは有限個の状態と事象が定義されているオートマトンのことである．生起した事象と状態遷移関数に従って，現在いる状態を遷移し連続する一連の動作（ふるまい）をモデリングする．
+
+有限オートマトン$G$は次のように5つの要素から表される．
+\begin{equation}
+    G = (Q, \Sigma, \delta, q_{0}, Q_{m})
+\end{equation}
+ここで$Q\subseteq$は状態の集合（有限），$\Sigma$は事象の集合，$\delta$は状態遷移関数，$q_0\in Q$は初期状態，$Q_m\in  Q$は受理状態の集合を表している．状態遷移関数$\delta$は$\delta(q,\sigma)$と書き，さらに状態$q$において事象$\Sigma$が生起しうることを$\delta(q,\sigma)$が定義されているといい，以下のように表される．
+$$\delta(q,\sigma)!$$
+
+ある事象$\sigma\in\Sigma$とおき，$\sigma_1 \sigma_2 \sigma_3 \cdots$と連続でならべたものを事象列と呼ぶ．また，事象列の事象の数を，事象列の長さといい，$\mid s\mid$と書くことで$s$の長さを表す．
+
+$\Sigma$に含まれる事象で作られるすべての事象列の集合を$\Sigma^\ast$とかく．この$\Sigma^\ast$には，長さ0の事象列である空事象列$\epsilon$も含まれている．
+
+%\begin{equation}
+$\delta:Q\times\Sigma\rightarrow Q$
+%\end{equation}
+
+%であった$\delta$
+を
+%\begin{equation}
+$\hat{\delta}:Q\times\mathrm{\Sigma}^\ast\rightarrow Q$
+%\end{equation}
+のように，以下の式の通りに拡張する．
+\begin{eqnarray*}
+    \hat{\delta}(q,\epsilon) &=& q\\
+    \hat{\delta}(q,\sigma) &=& \delta(q,\sigma)\\
+    \hat{\delta}(q,s\sigma) &=& \delta(\hat{\delta}(q,s),\sigma)
+\end{eqnarray*}
+$$q \in Q, \sigma \in \Sigma, s \in \Sigma^\ast$$
+そして以後，$\hat{\delta}$のハットを省略して$\delta$とかく．
+
+\subsection{言語}
+
+$\Sigma^\ast$の任意の部分集合を事象集合$\Sigma$の言語$L$という．
+\begin{equation}
+    L\subseteq\Sigma^\ast
+\end{equation}
+ある集合を与えられたとき，その集合のすべての部分集合から構成される集合をべき集合という．そして$\Sigma^\ast$のべき集合を$Pwr(\Sigma^\ast)$とかき，$L$は以下のようにも記すことができる.
+
+\begin{equation}
+    L\in Pwr(\Sigma^\ast)
+\end{equation}
+
+事象列$s\in\Sigma^\ast$を$s=s_1 s_2$とかくことができる事象列$s_2\in\Sigma^\ast$が存在するとき事象列$s_1\in\Sigma^\ast$をsの接頭語とよぶ．言語$L$に含まれる事象列のすべての接頭語からなる言語$\overline{L}$を次のように表す.
+
+\begin{equation}
+    \overline{L} = \{ s_1 \in\Sigma^\ast\mid(\exists s_2 \in \Sigma^\ast) s_1 s_2\in L\}
+\end{equation}
+
+$\delta(q_0,s)=q$とかける状態$q\in Q$が存在するとき，$q$は到達可能であるという．また，すべての状態$q\in Q$が到達可能なとき，オートマトン$G$は到達可能であるという．
+
+オートマトン$G$に対して，起こり得るすべての事象集合を$L(G)$と定義する．
+\begin{equation}
+    L(G) \coloneqq \{s\in L(G) \mid \delta(q_0, s) \in Q_m\}\subseteq\Sigma^\ast
+\end{equation}
+また，$L(G)$のうち，初期状態から受理状態まで遷移する事象列の集合を$L_m(G)$といい以下のように定義する．
+\begin{equation}
+    Lm(G) \coloneqq \{s\in L(G) \mid \delta(q_0, s) \in Q_m\} \subseteq L(G)
+\end{equation}
+
+「ある状態が到達可能でさらにその状態から受理状態に到達する可能性がある」，これがオートマトン$G$のすべての状態で成り立つとき，オートマトン$G$はノンブロッキングであるという．$\overline{L_m(G)}=L(G)$が成り立つ場合にのみ， $G$はノンブロッキングだといえる．
+
+
+
+
+\section{オートマトンの計算}
+\subsection{自己ループ}
+
+オートマトン$G = (Q, \Sigma, \delta, q_0, Q_m)$をおいたとき，$\Sigma^\prime \cap \Sigma=\emptyset$である事象の集合$\Sigma^\prime$との自己ループ$G_{sl}$は次のようなオートマトンとなる．
+\begin{equation}
+    G_{sl}=(Q,\Sigma\dot{\cup}\Sigma^\prime,\delta\dot{\cup}\delta^\prime,q_0,Q_m)
+\end{equation}
+ただし，$\delta^\prime\coloneqq\{[q,\sigma^\prime,q]\mid q\in Q,\sigma^\prime\in\Sigma^\prime\}$．つまり，自己ループというのは，もともと定義された$G$に関係のない事象（$\sigma^\prime$）が起こったとき，$G$は同じ状態に遷移するという操作（計算）のことである．
+
+\subsection{自然な射影}
+
+自然な射影$P\colon{(\Sigma\dot{\cup}\Sigma^\prime)}^\ast\rightarrow\Sigma^\ast$を以下のように定義する．
+%\begin{center}
+\begin{enumerate}
+    \renewcommand{\theenumi}{(\roman{enumi})}
+    
+    \item $P(\epsilon) = \epsilon$
+    \item $\sigma\in\Sigma$のとき$P(\sigma)=\sigma$\\
+    $\sigma\in\Sigma^\prime$のとき$P(\sigma)=\epsilon$
+    \item $s\in\Sigma^\ast,\sigma\in\Sigma,\Sigma^\prime$について，$P(s\sigma) = P(s)P(\sigma) $
+\end{enumerate}
+%\end{center}
+
+この$P(\cdot)$は，事象列を与えられたとき，特定の事象集合に含まれている事象だけを時系列順に取り出す関数である．
+
+また，言語$L\in Pwr(\Sigma^\ast)$について，自然な射影$P$の逆関数$P^{-1}\colon Pwr(\Sigma^\ast)\rightarrow Pwr((\Sigma\dot{\cup}\Sigma^\prime)^\ast)$は以下のようになる．
+
+\begin{equation}
+    P^{-1}(L)=\{s\in(\Sigma\dot{\cup}\Sigma^\prime)^\ast\mid P(s)\in L\}
+\end{equation}
+
+\subsection{同期合成}
+
+同期合成とは，複数のオートマトンから新しい一つのオートマトンを生み出す計算で，オートマトン$G_1，G_2$の同期合成$G$は次のように定義される．
+\begin{eqnarray}
+    G_1&=&(Q_1,\Sigma_1,\delta_1,q_{0,1},Q_{m,1})\\
+    G_2&=&(Q_2,\Sigma_2,\delta_2,q_{0,2},Q_{m,2})
+\end{eqnarray}
+\begin{equation}
+    G=G_1\mid\mid G_2=(Q,\Sigma,\delta,q_0,Q_m)
+\end{equation}
+$G_1$は$\Sigma_2-\Sigma_1$に対して，$G_2$は$\Sigma_1-\Sigma_2$に対して自己ループオートマトン$G_{1sl}$，$G_{2sl}$を生成する．
+\begin{eqnarray}
+    G_{sl1}=(Q1,\Sigma_1\cup(\Sigma_2-\Sigma_1),\delta_{sl1},q_{0,1},Q_{m,1})\\
+    G_{sl2}=(Q2,\Sigma_2\cup(\Sigma_1-\Sigma_2),\delta_{sl2},q_{0,2},Q_{m,2})
+\end{eqnarray}
+この二つをもとに次のように$G1||G2$を計算する．
+\begin{equation}
+    G=G_{sl1}\times G_{sl2}
+\end{equation}
+\begin{equation}
+    L_m(G_1\mid\mid G_2) = [P_1^{-1}L_m(G_1)]\cap[P_2^{-1}L_m(G_2)]
+\end{equation}
+$ここでP_1\colon(\Sigma_1\cup\Sigma_2)^\ast\rightarrow\Sigma_1^\ast, P_2\colon(\Sigma_1\cup\Sigma_2)^\ast\rightarrow\Sigma_2^\ast$．
+
+2つのオートマトンを同期合成したオートマトンと新しいオートマトンを同期合成することで3つのオートマトンの同期合成ができる．
+さらにこれを繰り返すことで3つ以上のオートマトンの同期合成をすることが以下に示す方法で可能である．
+\begin{equation}
+    G_1\mid\mid G_2\mid\mid G_3\mid\mid\cdots\mid\mid G_n=((\cdots (G_1\mid\mid G_2)\mid\mid G_3)\mid\mid\cdots)\mid\mid G_n
+\end{equation}
+
+
+\section{スーパーバイザ制御}
+\subsection{スーパーバイザと言語}
+
+スーパーバイザ制御は，制御対象，制御要求，スーパーバイザの３つの要素からできている．制御対象はオートマトンでモデル化されている．スーパーバイザは，事象の生起を禁止することによって，制御対象が制御要求を満たすように管理をする．
+
+事象集合$\Sigma$を二つの集合に分割して，可制御事象$\Sigma_c \subseteq \Sigma$と不可制御事象$\Sigma_u \subseteq \Sigma$とおく．$\Sigma_c$と$\Sigma_u$は共通する要素を持たず，ふたつの和集合は全体の事象集合$\Sigma$と一致する． つまり次の式が成り立つ．
+
+\begin{equation}
+    \Sigma = \Sigma_c \dot{\cup} \Sigma_u
+\end{equation}
+
+スーパーバイザは可制御事象に対してのみ事象の生起を禁止することができ，不可制御事象の生起を禁止することはできない．そこで制御パターン$\gamma$という事象集合$\Sigma$の部分集合を定義する．スーパーバイザが事象の発生を許可している制御パターン$\gamma$には次のような関係式が成り立つ．
+
+\begin{equation}
+    \Sigma_u \subseteq \gamma \subseteq \Sigma
+\end{equation}
+
+また，すべての制御パターンの集合$\Gamma$を定義する．
+\begin{equation}
+    \Gamma \coloneqq \{\gamma \mid \Sigma_u \subseteq \gamma \subseteq \Sigma\}
+\end{equation}
+
+制御対象$G$に対するスーパーバイザ制御$V$は以下のように写像する．
+\begin{equation}
+    V \colon L(G) \rightarrow \Gamma
+\end{equation}
+
+事象列$s \in L(G)$に対して，それぞれに対応する制御パターン$V(s) \in \Gamma$が存在する．
+
+制御対象$G$がスーパーバイザ制御$V$の制御下にあるとき，$V/G$とかく．そしてそれを閉鎖的なループで図のように示すことができる．
+
+\begin{enumerate}
+    \item $G$は事象列$s \in L(G)$を生成する
+    \item $s$に対して，スーパーバイザVが制御パターン$V(s) \in \Gamma$を生成する．
+    \item 次の２つを満たした場合， $G$は$s$に続く$\sigma$を生成する．
+    \begin{enumerate}
+        \renewcommand{\theenumii}{\roman{enumii}}
+        \item $\sigma \in V(s)$（$V$に許可された$\sigma$）
+        \item $s\sigma \in L(G)$（Gで，$s$の後物理的に起こり得る$\sigma$）
+        \end{enumerate}
+　　\item $s\sigma$を$s$に代入し，1へ戻り繰り返す．
+\end{enumerate}
+
+$V/G$によって生み出される言語は$L(V/G)$とかき，以下のように定義する．
+\begin{enumerate}
+    \renewcommand{\theenumi}{(\roman{enumi})}
+    \item $\epsilon \in L(V/G)$
+    \item $s \in L(V/G)$かつ$\sigma \in V(s)$かつ$s\sigma \in L(G)$であれば，$s\sigma  \in L(V/G)$
+    \item (i)，(ii)以外の事象列は$L(V/G)$に属しない．
+\end{enumerate}
+
+また$L(V/G)$について三式が成り立つ．
+
+\begin{eqnarray}
+    L(V/G)&\neq&\emptyset\\L(V/G)&=&\overline{L(V/G)}\\L(V/G)&\subseteq&L(G)
+\end{eqnarray}
+
+\subsection{可制御性}
+
+制御要求を満たす言語$K \in L(G)$をおく．$V/G$のマーク言語$L_m(V/G)$を以下のように定義する．
+$$L_m(V/G) \coloneqq L(V/G) \cap K$$
+また，このときの$V$を$(K, G)$に対するマーキングスーパーバイザ制御と呼ぶ．
+$\overline{L_m(V/G)} = L(V/G)$のとき，$V$はノンブロッキングである．そして，$K$が制御可能のときかつその時に限り，ノンブロッキングである$(K,G)$に対する$V$が存在する．制御可能であるというのは，$\overline{K}$に含まれるすべての事象列について
+\begin{equation}
+    \overline{K}\Sigma_u\cap L(G)\subseteq\overline{K}
+\end{equation} 
+が成り立つときの$K$をいう．言い換えれば制御可能とは，不可制御事象が生起したとしても受理状態まで到達可能であることをいう．%な$K$は
+
+制御可能であれば，制御要求を満たすスーパーバイザが存在するといえる．つまりノンブロッキングなスーパーバイザを作ることができるかどうかは可制御性に依存している．
+
+\subsection{最大許容スーパーバイザ}
+$K$の制御可能な部分言語すべての集合を$C(K)$とかく．
+\begin{equation}
+    C(K)\coloneqq\{K^\prime\subseteq K\mid\overline{K^\prime}\Sigma_u\cap L(G)\subset\overline{K^\prime}\}
+\end{equation}
+
+また，以下のような式で表せる，$C(K)$の要素のうちすべての$K^\prime$を含んでいる最大要素$supC(K)$を定義する．
+
+\begin{equation}
+    supC(K) \coloneqq \bigcup\{K^\prime\mid K^\prime\in C(K)\}
+\end{equation}
+
+制御要求の言語$E（E\subseteq\Sigma^\ast,E\subset L_m(G)）$が与えられて$K=E\cap L_m(G)\subseteq L_m(G)$とし，$K_{sup}=supC(K)$（$\neq\emptyset$）であったとする．このとき，
+\begin{equation}
+    L_m(V_{sup}/G)=K_{sup}
+\end{equation}
+となるノンブロッキングな$(K_{sup},G)$に対するマーキングスーパーバイザ制御$V_{sup}$が常に存在する．またこのときのスーパーバイザを最大許容スーパーバイザとよぶ．
+
+
+\chapter{シミュレーションの設計}
+\setcounter{section}{-1}
+\section{緒言}
+
+\section{倉庫のモデル化}
+
+倉庫の大きさや商品を保管する棚の配置など，倉庫によって構造が異なってくる．本研究では具体的に図のような倉庫を考える．この倉庫の中で複数のロボットが動いているシミュレーションをしていく．倉庫は，待機場所，通路，棚，搬出場所の4つの要素で構成されている．
+
+上をロボットの待機位置，下をロボットが荷物を届ける搬出場所，～の部分を荷物の保管されている棚として，それ以外は通路とする．この通路はロボット一台が通れるくらいの幅で，すれ違うことは不可能であると想定する．
+
+すべてのロボットにおいて，商品を積み込むときを除いて，いかなるときも棚に侵入できない．そして，棚に侵入するときは必ず上から入り下から出ていく．また，ロボットは前もしくは，右か左に進む動きしかできず，後ろ向きには進めないものとする．
+
+ロボットは上の待機場所でタスクを割り当てられるのを待ち，割り当てられたら目的の品があるところまで行き，商品を積み，下の搬出場所までいく．ここでのタスクを割り当てられるというのは，スタート地点，ゴール地点，商品の場所の3つを与えられることである．スタート地点は待機場所の一段下の状態を，ゴール地点は搬出場所の一段上の状態を指す．商品の場所は棚のうちの一つを指す．
+
+また，倉庫内で複数台のロボットを制御するとき，以下の点において，注意する必要がある．
+\begin{itemize}
+    \item 安全性：ロボット同士の接触（衝突）を防ぐ
+    \item デッドロック状態の回避：図のように，お互いのロボットが道を塞いでしまい，動けなくなる状態になることを回避する
+    \item 効率性：すべてのロボットが荷物を届け終えるまでの時間が最短になるようにする
+\end{itemize}
+安全性については，エージェントが２つ以上同じ状態に存在することを禁止する制御要求することで，スーパーバイザによってロボットの衝突を回避することが可能になる．デッドロック状態の回避は，ノンブロッキングであることをスーパーバイザに要求することで解決される．
+%あとは効率性の説明
+
+\section{ロボットのモデル化}
+
+倉庫内のロボットはすべてオートマトンで設計する．2章で紹介したオートマトンのように5つの要素で構成する$n(>1)$台のロボットを考えるとき，ロボットのオートマトンを以下の$G_i(i=1,2,\ldots,n)$で定義する．
+\begin{equation}
+    G_i=(Q_i,\Sigma_i,\delta_i,q_{0,i},Q_{m,i})
+\end{equation}
+ここで$Q_i$は$i$台目のロボットの最短経路上の全状態の集合，$\Sigma_i$はi台目のロボットの動作の集合，$\delta_i$は状態遷移関数，$q_{0,i}$は待機場所の状態，$Q_{m,i}$は搬出場所の状態で構成されている．ロボットの動作は表にあるように設定する．TCTでは奇数の事象が可制御事象，偶数の事象が不可制御事象として処理される．ロボットの動作はすべて可制御事象なので奇数で与える．
+
+\section{人間のモデル化}
+
+倉庫内の人間も，ロボットと同様にオートマトンで定義する．人間の場合，待機場所と帰ってくる目的地を一番下の位置（搬出場所）にする．
+%H=(Q_H,\Sigma_H,\delta_H,q_{0,H},Q_{m,H})
+
+人間とロボットが存在する倉庫では，人間の安全面を絶対に確保することが求められ，最優先に考える必要がある．つまり，人間はロボットよりも優先的なエージェントとして扱う．また，人間は意思を持って動くため制御対象ではないため，人間の動作は不可制御事象として，表のように偶数で与える．
+
+
+%\includegraphics[width=5cm]{apple.png}
+
+\chapter{倉庫でHuman-in-the-loopした場合のシミュレーション例}
+
+\setcounter{section}{-1}
+
+\section{緒言}
+
+\section{ケース1}
+
+ケース1では，人間がトラブルの場所へ行き，すぐに戻ってくるケースについて考える．たとえば，商品から棚から落ちた場合を考える．
+
+\section{ケース2}
+
+ケース2ではトラブルの場所で人間がしばらく滞在するケース
+
+棚に不具合がある場合や，棚にある商品を確認したりする場合を考える
+
+\section{ケース3}
+
+ケース3では，ロボットが故障したときに，人間がロボットを待機場所まで運ぶ場合
+
+・通路上で故障
+
+・棚にいるときに故障
+
+\section{ケース4}
+
+ケース4では，ロボットが荷物を積み込むときに人間の助けが必要な場合
+
+
+\chapter{結論}
+
+\begin{acknowledgment}
+謝辞
+\end{acknowledgment}
+
+\thesisbib
+\end{document}

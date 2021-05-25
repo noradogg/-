@@ -1,0 +1,138 @@
+% ------------------------------------------------------------------------------
+% thesisstyle.tex
+% thesisstyle template 2014
+% 2012/02/09 written by Kenzo OKUDA.
+% 2014/02/10 updated by Kenzo OKUDA.
+% 
+% Copyright (C) 2012-2014 Kenzo OKUDA. 
+% Advanced Communications and Networking Research Group, Osaka City University. 
+% ------------------------------------------------------------------------------
+
+\NeedsTeXFormat{pLaTeX2e}
+\listfiles	% 処理したファイル一覧をlogに出力
+
+% -- encoding
+% use utf8 as input encodings
+\usepackage[utf8]{inputenc}
+% use T1(8 bits, PostScript Type 1) as font encodings
+\usepackage[T1]{fontenc}
+% support for the Text Companion fonts
+\usepackage{textcomp}
+
+
+% -- graphics
+\usepackage[dvipdfmx]{graphicx,color}
+% graphics search-path
+\graphicspath{{figures/}{graphs/}{src/}{img/}}
+% Patches for LaTeX
+\usepackage{fixltx2e}	% LaTeX2e の図配置の問題を修正
+% Emulation of obsolete package for "here" floats
+\usepackage{here}	% 
+% Improved interface for floating objects
+% \usepackage{float}	% this is replaced by here.sty
+% Execute command after the next page break
+\usepackage{afterpage}
+% getting BoundingBox from PDF Mediabox
+% render extractbb/ebb/xbb unnecessary
+% http://www.ma.ns.tcu.ac.jp/Pages/TeX/mediabb.sty.html
+%\usepackage{mediabb}%	PDFから直接BBを取得する．ebbの実行が不要．
+
+
+% -- sub figure
+%% subfigure.sty
+% obsolute．標準非搭載で使えない．
+%\usepackage{subfigure}\def\subfloat{\subfigure}
+
+%% subfig [2005/06/28 ver: 1.3 subfig package]
+% 古い．標準搭載
+%\usepackage[caption=false,font=footnotesize]{subfig}
+%	\captionsetup[subfloat]{labelformat=simple,listofformat=simple,subrefformat=simple}
+%	\renewcommand{\thesubfigure}{(\alph{subfigure})}
+%	%図参照番号で副番号を括弧でくくる 11a -> 11(a)
+%	\renewcommand{\thesubtable}{(\alph{subtable})}
+%	%表参照番号で副番号を括弧でくくる 11a -> 11(a)
+%	\captionsetup[subtable]{labelformat=simple,listofformat=simple,subrefformat=simple}
+%	\def\subfigure{\subfloat}
+
+%% subcaption [2013-02-03]
+% 新しい．標準搭載．captionの一部．そろそろsubcaptionに乗り換えたい
+%\usepackage[labelformat=simple]{subcaption}
+%\renewcommand\thesubfigure{(\alph{subfigure})}
+
+%% subfloat.sty	
+% subfiure環境を実現する．
+% subfiure環境でfigure環境を囲むとサブキャプションになる．
+%\usepackage{subfloat}
+
+
+% -- table
+% Publication quality tables in LaTeX
+\usepackage{booktabs}	% tabular環境で\topruleなどを使う．
+% Extending the array and tabular environments
+\usepackage{array}	% arrayとtabular環境を改善
+% Create tabular cells spanning multiple rows
+\usepackage{multirow}
+% Create equal-widthed par­boxes
+%\usepackage{eqparbox}	% 同じ幅に調整されるボックス
+
+
+% -- math
+% AMS mathematical facilities for LaTeX
+\usepackage{amsmath}
+% preventing page breaks from occurring within multiline equations
+\interdisplaylinepenalty=2500
+% TeX fonts from the American Mathematical Society
+\usepackage{amssymb}
+% Access bold symbols in maths mode
+\usepackage{bm}
+
+
+% -- font
+% obsolete package
+%  * \usepackage{times}
+%  * \usepackage{pslatex}
+% more old package
+%  * \usepackage{txfonts}
+%    * Times-like fonts in support of mathematics
+% old package
+%  * \usepackage{mathptmx}
+%    *  Use Times as default text font, and provide maths support
+% latest packages for using Times fonts
+%  * \usepackage{newtxtext,newtxmath}
+%    * Alternative uses of the TX fonts, with improved metrics
+%
+%\usepackage{txfonts}
+%\usepackage{newtxtext,newtxmath}
+%
+% Arbitrary size font selection in LaTeX
+\usepackage{type1cm}	% Computer Modernのサイズ変更を有効にする．
+
+
+% -- mapfile for embedding fonts
+% Base 14 fonts
+%\AtBeginDvi{\special{pdf:mapfile psbase14.map}}
+% Adobe base 14 fonts (Karl Berry names)
+%\AtBeginDvi{\special{pdf:mapfile kbbase14.map}}
+% Alternative base 14 fonts (urw fonts in Ghostscript)
+%\AtBeginDvi{\special{pdf:mapfile dlbase14.map}}
+
+
+% -- citation style
+% Improved citation handling in LATEX
+%\usepackage{cite}
+% Flexible bibliography support
+\usepackage[square, comma, numbers, sort&compress]{natbib}
+
+
+% -- others
+% Verbatim with URL-sensitive line breaks
+\usepackage{url}
+% Selectively include/excludes portions of text
+\usepackage{comment}
+% Control layout of itemize, enumerate, description
+%\usepackage{enumitem}
+
+
+%%
+%% End of file `thesisstyle.tex'.
+

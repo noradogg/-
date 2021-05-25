@@ -1,0 +1,80 @@
+\documentclass[dvipdfmx]{newthesis}
+
+\usepackage{graphicx} % dvipdfmxオプションを指定しないでください
+\hyperrefsetpdfmetadata
+\addbibresource{reference.bib}
+\usepackage{bxjalipsum}
+\usepackage{amsmath,amssymb}
+\usepackage{mathtools}
+\usepackage{enumerate}
+
+
+\title{離散事象システムに基づいた人間と調和したマルチロボットによる倉庫自動化に関する研究}
+% \engtitle{Sample of Resume Template}
+\date{令和2年度}
+\affiliation{
+  大阪市立大学 工学部 電気情報工学科 \\
+  エレクトロニクス領域
+}
+\author{野田 健太朗}
+
+
+\begin{document}
+
+
+% 0.表紙
+\maketitle
+
+% 0.1.概要
+\input{Text/0_abstract}
+
+ \pagenumbering{roman}
+% 0.2.本文の目次
+\tableofcontents
+%\thesisstyleindex
+
+% 0.3.図の目次
+\listoffigures
+
+% 0.4.表の目次
+\listoftables
+
+% 1.序論
+\input{Text/1_Introduction}
+\clearpage
+
+% 2.
+\input{Text/2_}
+\clearpage
+
+% 3.
+\input{Text/3_}
+\clearpage
+
+% 4.
+\input{Text/4_}
+\clearpage
+
+% 5.
+\input{Text/5_}
+\clearpage
+
+% 6.
+\input{Text/6_}
+\clearpage
+
+% 謝辞
+\begin{acknowledgment}
+本論文の執筆にあたり，多くの方々にご支援いただきました．
+中間報告会および審査会では，阿多信吾教授，岡育生教授，辻岡哲夫准教授，蔡凱准教授より，貴重なご指導とご助言を賜り，深く感謝申し上げます．
+特に，主指導教員である蔡凱准教授には，研究の進め方や枠組みにおいて，丁寧かつ熱心なご指導をいただきました．心より感謝申し上げます．
+
+最後に，研究について有益なご討論，ご助言をいただきました同研究学科の皆様にお礼申し上げます．
+
+ありがとうございました．
+\end{acknowledgment}
+
+% Reference
+\thesisbib
+
+\end{document}

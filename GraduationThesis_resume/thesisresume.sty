@@ -1,0 +1,100 @@
+% ------------------------------------------------------------------------------
+% thesisresume.sty
+% thesisstyle resume template 2014
+% 2012/02/23 writed by kenzoh OKUDA.
+% 2014/02/12 updated by kenzoh OKUDA.
+% 
+% Copyright (C) 2012-2014 Kenzo OKUDA. 
+% Advanced Communications and Networking Research Group, Osaka City University. 
+% ------------------------------------------------------------------------------
+
+\NeedsTeXFormat{pLaTeX2e}
+\ProvidesPackage{thesisresume}[2014/02/12 v1.02 thesisstyle resume template 2014 for ACNRG by Kenzo OKUDA]
+
+
+% -- Options
+% times fonts
+%  default: txfonts
+\newcommand{\@timesfontsid}{1}
+\DeclareOption{newtx}{\renewcommand{\@timesfontsid}{0}}
+\DeclareOption{txfonts}{\renewcommand{\@timesfontsid}{1}}
+%
+\ProcessOptions\relax
+
+
+% -- styles
+% correct bad hyphenation here
+\hyphenation{op-tical net-works semi-conduc-tor}
+
+
+% -- fonts
+% use Helvetica as sans-serif
+\RequirePackage[scaled]{helvet}
+% use Palatino as serif(roman)
+%\renewcommand{\rmdefault}{pplx}
+% use Times as serif(roman)
+\renewcommand{\rmdefault}{ptm}
+% use Courier as typewriter
+\renewcommand{\ttdefault}{pcr}
+\normalfont
+
+
+\iftrue
+	% 8.27in x 11.69in
+	\RequirePackage[a4paper,dvipdfm,twoside,truedimen]{geometry}
+	%\geometry{textheight=10.6in,textwidth=7.3in}
+	%\geometry{layouthoffset=0.1in,textheight=10.7in,textwidth=7.6in}
+	\geometry{columnsep=0.2in,twoside,bindingoffset=0.2in,textheight=10.6in,textwidth=7.6in}
+\else
+	\RequirePackage{setspace}
+	\setlength{\topmargin}{-0.5in}
+	\setlength{\oddsidemargin}{-0.5in}
+	\setlength{\textwidth}{7.3in}
+	\setlength{\textheight}{10.6in}
+	\setlength{\headheight}{0.0in}
+	\setlength{\headsep}{0.0in}
+	\setlength{\topskip}{0.0in}
+	\setlength{\footskip}{0.0in}
+	\setlength{\columnsep}{0.25in}
+\fi
+
+
+
+% -- times fonts
+% obsolete package
+%  * \usepackage{times}
+%  * \usepackage{pslatex}
+% more old package
+%  * \usepackage{txfonts}
+%    * Times-like fonts in support of mathematics
+% old package
+%  * \usepackage{mathptmx}
+%    *  Use Times as default text font, and provide maths support
+\ifnum\@timesfontsid=0
+  % latest packages for using Times fonts
+  %  * Alternative uses of the TX fonts, with improved metrics
+  \RequirePackage{newtxtext,newtxmath}
+\fi
+\ifnum\@timesfontsid=1
+  % more old package for using Times fonts
+  %  * Times-like fonts in support of mathematics
+  \RequirePackage{txfonts}
+\fi
+
+
+% ----------------------------------------------------------------------
+% - thesisresume command
+
+
+% -- apply style
+\def\thesisresume{
+	\baselineskip = 12pt
+	\maketitle
+	\noindent
+}
+
+
+\endinput
+%%
+%% End of file `thesisstyle.sty'.
+
